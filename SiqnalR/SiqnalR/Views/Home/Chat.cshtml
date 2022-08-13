@@ -8,15 +8,24 @@
             <div class="col-md-6">                
         <div class="row">
             <div class="col-2">User</div>
-            <div class="col-4"><input type="text" id="userInput" /></div>
+            <div class="col-4">
+                <label></label>
+                <input type="text" id="userInput" value="@User.Identity.Name"/>
+            </div>
         </div>
         <div class="row">
             <div class="col-2">Message</div>
-            <div class="col-4"><input type="text" id="messageInput" /></div>
+            <div class="col-4"><input type="text" id="messageInput"  /></div>
         </div>       
         <div class="row">
             <div class="col-6">
                 <input type="button" id="sendButton" value="Send Message" />
+            </div>
+        </div> <br />
+
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="addGroup" value="AddGroup" />
             </div>
         </div>
          <div class="row">
@@ -26,9 +35,22 @@
                      </ul>
                    </div>
               </div>
-            </div>
-             <div class="col-md-6">
-         <ul class="list-group">
+       </div>
+       <div>
+           <div id="groupmessagesH1">
+
+           </div>
+            <div class="row">
+                  <div class="col-6">
+                     <ul id="groupmessagesList">
+               
+                     </ul>
+                   </div>
+              </div>
+       </div>
+
+        <div class="col-md-6">
+           <ul class="list-group">
              @foreach (var item in ViewBag.Userlar)
             {
               <li id="@item.Id" class="list-group-item"> 
@@ -39,12 +61,30 @@
                 </a>                  
                </li>
             }    
-       </ul>
+         </ul>
+       </div>  
+
+      <div class="col-md-6">
+             <form>
+               
+             @foreach (var item in ViewBag.Userlar)
+            {     
+               <div class="form-check">
+               <input class="form-check-input" type="checkbox" value="@item.UserName" id="@item.Id">
+                <label class="form-check-label" for="flexCheckDefault">
+                 @item.UserName
+               </label>
+               </div>      
+              
+            }    
+           </form>
      </div>  
    
     </div>
  </div>
-     
+    
+
+
 
 
     @section Scripts{
@@ -61,10 +101,7 @@
                 connection.invoke("SendMessage", user, message);
              })
 
-            connection.on("ReceiveMessage", function(user, message, date) {
-                let li=`<li> ${user} ${message} ${date}</li>`
-                $("#messagesList").append(li);
-            })
+           
             connection.on("Userconnect", function(userId){
                 $(`#${userId}`).find("span").addClass("bg-online");
                 $(`#${userId}`).find("span").removeClass("bg-offline");
@@ -76,6 +113,9 @@
             connection.on("PrivateMessage", function() {
                    alert("salam")
             })
+
+
+
         </script>
     }
 

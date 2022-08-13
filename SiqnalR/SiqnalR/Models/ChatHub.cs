@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.SignalR;
 using SiqnalR.DAL;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SiqnalR.Models
@@ -48,5 +50,7 @@ namespace SiqnalR.Models
             }
             return base.OnDisconnectedAsync(exception);
         }
+
+ 
     }
 }

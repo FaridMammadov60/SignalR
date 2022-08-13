@@ -103,5 +103,14 @@ namespace SiqnalR.Controllers
             return RedirectToAction("chat");
         }
 
+        public IActionResult GroupChat()
+        {
+            List<AppUser> users = _userManager.Users.Where(u => u.ConnectId != null).ToList();
+            List<AppUser> userlar = _userManager.Users.ToList();
+            ViewBag.ChatUsers = users;
+            ViewBag.Userlar = userlar;
+            return View();
+        }       
+
     }
 }
